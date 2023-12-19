@@ -3,21 +3,21 @@
  * swap1 - swaps nodes from left to right
  * @list: pointer to list
  * @head: pointer to head node
- * @aux: auxiliar pointer
+ * @auxp: auxiliar pointer
  * Return: no return
  */
-void swap1(listint_t **list, listint_t *head, listint_t *aux)
+void swap1(listint_t **list, listint_t *head, listint_t *auxp)
 {
 	if (head->prev)
-		head->prev->next = aux;
+		head->prev->next = auxp;
 	else
-		*list = aux;
-	if (aux->next)
-		aux->next->prev = head;
-	head->next = aux->next;
-	aux->prev = head->prev;
-	aux->next = head;
-	head->prev = aux;
+		*list = auxp;
+	if (auxp->next)
+		auxp->next->prev = head;
+	head->next = auxp->next;
+	auxp->prev = head->prev;
+	auxp->next = head;
+	head->prev = auxp;
 	print_list(*list);
 
 }
@@ -25,22 +25,22 @@ void swap1(listint_t **list, listint_t *head, listint_t *aux)
  * swap2 - swaps nodes from right to left
  * @list: pointer to list
  * @head: pointer to head node
- * @aux: auxiliar pointer
+ * @auxp: auxiliar pointer
  * Return: no return
  */
-void swap2(listint_t **list, listint_t *head, listint_t *aux)
+void swap2(listint_t **list, listint_t *head, listint_t *auxp)
 {
-	aux = head->prev;
-	aux->next->prev = aux->prev;
-	if (aux->prev)
-		aux->prev->next = aux->next;
+	auxp = head->prev;
+	auxp->next->prev = auxp->prev;
+	if (auxp->prev)
+		auxp->prev->next = auxp->next;
 	else
-		*list = aux->next;
-	aux->prev = aux->next;
-	aux->next = aux->next->next;
-	aux->prev->next = aux;
-	if (aux->next)
-		aux->next->prev = aux;
+		*list = auxp->next;
+	auxp->prev = auxp->next;
+	auxp->next = auxp->next->next;
+	auxp->prev->next = auxp;
+	if (auxp->next)
+		auxp->next->prev = auxp;
 	print_list(*list);
 }
 
@@ -52,7 +52,7 @@ void swap2(listint_t **list, listint_t *head, listint_t *aux)
  **/
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *head, *aux;
+	listint_t *head, *auxp;
 	int flag = 1;
 
 	if (list)
@@ -65,8 +65,8 @@ void cocktail_sort_list(listint_t **list)
 			{
 				if (head->n > head->next->n)
 				{
-					aux = head->next;
-					swap1(list, head, aux);
+					auxp = head->next;
+					swap1(list, head, auxp);
 					flag = 1;
 				}
 				else
@@ -79,7 +79,7 @@ void cocktail_sort_list(listint_t **list)
 			{
 				if (head->prev->n > head->n)
 				{
-					swap2(list, head, aux);
+					swap2(list, head, auxp);
 					flag = 1;
 				}
 				else
