@@ -18,7 +18,7 @@ void counting_sort(int *array, size_t size)
 		if (array[i] > n)
 			n = array[i];
 	}
-	count_array = malloc((n + 1), sizeof(int));
+	count_array = calloc((n + 1), sizeof(int));
 	for (i = 0; i < size; i++)
 	{
 		count_array[array[i]]++;
