@@ -4,40 +4,40 @@
  * @array: pointer to array
  * @size: size of the pointer
  * @size_init: original size of the array
- * @i: index as a root of the tree
+ * @j: index as a root of the tree
  *
 **/
-void check_tree(int *array, size_t size_init, size_t size, size_t i)
+void check_tree(int *array, size_t size_init, size_t size, size_t j)
 {
 
-	int n, branch1, branch2;
-	size_t br1, br2;
+	int m, branch1, branch2;
+	size_t bran1, bran2;
 
-	br1 = i * 2 + 1;
-	br2 = br1 + 1;
-	branch1 = array[br1];
-	branch2 = array[br2];
-	if (((br1 < size) && (br2 < size) &&
-		(branch1 >= branch2 && branch1 > array[i]))
-		|| ((br1 == size - 1) && branch1 > array[i]))
+	bran1 = j * 2 + 1;
+	bran2 = bran1 + 1;
+	branch1 = array[bran1];
+	branch2 = array[bran2];
+	if (((bran1 < size) && (bran2 < size) &&
+		(branch1 >= branch2 && branch1 > array[j]))
+		|| ((bran1 == size - 1) && branch1 > array[j]))
 	{
-		n = array[i];
-		array[i] = branch1;
-		array[br1] = n;
+		m = array[j];
+		array[j] = branch1;
+		array[bran1] = m;
 		print_array(array, size_init);
 	}
-	else if ((br1 < size) && (br2 < size) &&
-		(branch2 > branch1 && branch2 > array[i]))
+	else if ((bran1 < size) && (bran2 < size) &&
+		(branch2 > branch1 && branch2 > array[j]))
 	{
-		n = array[i];
-		array[i] = branch2;
-		array[br2] = n;
+		m = array[j];
+		array[j] = branch2;
+		array[bran2] = m;
 		print_array(array, size_init);
 	}
-	if (br1 < size - 1)
-		check_tree(array, size_init, size, br1);
-	if (br2 < size - 1)
-		check_tree(array, size_init, size, br2);
+	if (bran1 < size - 1)
+		check_tree(array, size_init, size, bran1);
+	if (bran2 < size - 1)
+		check_tree(array, size_init, size, bran2);
 }
 /**
  * heap_sort - sorts an array of integers
@@ -49,22 +49,22 @@ void check_tree(int *array, size_t size_init, size_t size, size_t i)
 **/
 void heap_sort(int *array, size_t size)
 {
-	size_t i, size_init = size;
-	int n;
+	size_t j, size_init = size;
+	int m;
 
 	if (!array)
 		return;
-	for (i = 0; i < size / 2 ; i++)
+	for (j = 0; j < size / 2 ; j++)
 	{
-		check_tree(array, size_init, size, size / 2 - 1 - i);
+		check_tree(array, size_init, size, size / 2 - 1 - j);
 	}
-	for (i = 0; i < size_init - 1; i++)
+	for (j = 0; j < size_init - 1; j++)
 	{
-		n = array[0];
-		array[0] = array[size - 1 - i];
-		array[size - 1 - i] = n;
+		m = array[0];
+		array[0] = array[size - 1 - j];
+		array[size - 1 - j] = m;
 		print_array(array, size_init);
-		check_tree(array, size_init, size - i - 1, 0);
+		check_tree(array, size_init, size - j - 1, 0);
 	}
 
 }
